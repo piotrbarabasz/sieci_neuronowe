@@ -20,7 +20,7 @@ models = {
     "MLP": MLPModel((X_train.shape[1],))
 }
 
-results_file = 'results/model_results.csv'
+results_file = 'results/training/model_results.csv'
 
 with open(results_file, mode='w', newline='') as file:
     writer = csv.writer(file)

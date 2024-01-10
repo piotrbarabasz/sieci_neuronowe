@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
+# from model_plots import plot_roc_curves, plot_precision_recall_curves, plot_confusion_matrices
+from model_plots import ModelPlots
+
 
 class ModelBase(ABC):
     def __init__(self, input_shape):
@@ -14,7 +17,7 @@ class ModelBase(ABC):
         self.model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
         self.model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=0.2)
 
-        model_file = f'models/results/model_{model_name}.h5'
+        model_file = f'models/results/_model_{model_name}.h5'
         self.model.save(model_file)
         print(f"Model saved: {model_file}")
 
@@ -28,4 +31,10 @@ class ModelBase(ABC):
             "F1 Score": f1_score(y_test, y_pred),
             "ROC AUC Score": roc_auc_score(y_test, y_pred)
         }
+
+        plotter = ModelPlots({model_name: self.model}, X_test, y_test)
+        plotter.plot_roc_curves()
+        plotter.plot_precision_recall_curves()
+        plotter.plot_confusion_matrices()
+
         return results

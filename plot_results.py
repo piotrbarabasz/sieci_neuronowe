@@ -3,8 +3,7 @@ import matplotlib
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-
-results_file = 'results/model_results.csv'
+results_file = 'results/training/model_results.csv'
 df = pd.read_csv(results_file)
 
 df.set_index('Model', inplace=True)
@@ -26,6 +25,6 @@ if len(metrics) < 6:
 
 plt.tight_layout()
 plt.subplots_adjust(top=0.9)
-output_file = 'results/performance_comparison.png'
+output_file = 'results/training/performance_comparison.png'
 plt.savefig(output_file, bbox_inches='tight')
 plt.show()
