@@ -24,7 +24,7 @@ results_file = 'results/training/model_results.csv'
 
 with open(results_file, mode='w', newline='') as file:
     writer = csv.writer(file)
-    writer.writerow(['Model', 'Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score'])
+    writer.writerow(['Model', 'Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score', 'Balanced Accuracy'])
 
     for name, model_instance in models.items():
         print(f"Training and evaluating {name} model")
@@ -37,4 +37,4 @@ with open(results_file, mode='w', newline='') as file:
         )
 
         writer.writerow(
-            [name] + [results[key] for key in ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score']])
+            [name] + [results[key] for key in ['Accuracy', 'Precision', 'Recall', 'F1 Score', 'ROC AUC Score', 'Balanced Accuracy']])
