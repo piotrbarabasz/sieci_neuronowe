@@ -3,7 +3,7 @@ from tensorflow.keras.optimizers import Adam
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 from model_plots import ModelPlots
 from sklearn.metrics import balanced_accuracy_score
-
+import optuna
 
 class ModelBase(ABC):
     def __init__(self, input_shape):
@@ -39,3 +39,23 @@ class ModelBase(ABC):
         plotter.plot_confusion_matrices()
 
         return results
+
+    def objective(self, model, trial):
+
+        model = self.models.create_model(trial)
+
+
+        lr = trial.suggest_float('lr', 1e-5, 1e-1, log=True)
+
+        # Initialize and train your model here with the suggested hyperparameters
+        # ...
+
+        # Evaluate the model and return the performance metric
+        return metric
+
+    def optimize_hyperparameters(self, model, n_trials):
+        study = optuna.create_study(direction='maximize')
+        study.optimize(self.objective(model), n_trials=n_trials)
+
+        best_trial = study.best_trial
+        return best_trial
