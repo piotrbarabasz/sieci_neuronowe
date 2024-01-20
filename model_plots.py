@@ -1,5 +1,3 @@
-import matplotlib
-matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import roc_curve, auc, precision_recall_curve, confusion_matrix
@@ -41,18 +39,18 @@ class ModelPlots:
         plt.close()
 
     def plot_confusion_matrices(self):
-        fig, axes = plt.subplots(nrows=2, ncols=3, figsize=(15, 10))
-        fig.suptitle('Confusion Matrices for All Models')
+        fig, axes = plt.subplots(2, 3, figsize=(15, 10))  # Adjusted for 2 rows and 3 columns
+        fig.suptitle('Confusion Matrices for All Models', fontsize=16)
         for idx, (model_name, model) in enumerate(self.models.items()):
             y_pred = model.predict(self.X_test).ravel()
             y_pred_binary = np.where(y_pred > 0.5, 1, 0)
             cm = confusion_matrix(self.y_test, y_pred_binary)
-            ax = axes[idx // 3, idx % 3]
-            sns.heatmap(cm, annot=True, fmt="d", ax=ax)
+            ax = axes[idx // 3, idx % 3]  # Adjusted for 2 rows and 3 columns
+            sns.heatmap(cm, annot=True, fmt="d", ax=ax, cmap='Blues')
             ax.set_title(model_name)
             ax.set_xlabel('Predicted Labels')
             ax.set_ylabel('True Labels')
         plt.tight_layout()
-        plt.subplots_adjust(top=0.92)
+        plt.subplots_adjust(top=0.85)  # Adjust top spacing to not overlap with title
         plt.savefig('results/training/all_models_confusion_matrices.png', bbox_inches='tight')
         plt.close()

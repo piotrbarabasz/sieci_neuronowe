@@ -13,11 +13,11 @@ class ModelBase(ABC):
     def build_model(self, input_shape):
         pass
 
-    def train_and_evaluate(self, X_train, y_train, X_test, y_test, model_name, epochs=100, batch_size=32):
+    def train_and_evaluate(self, X_train, y_train, X_test, y_test, model_name, epochs=10, batch_size=32):
         self.model.compile(optimizer=Adam(learning_rate=0.001), loss='binary_crossentropy', metrics=['accuracy'])
         self.model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=0.2)
 
-        model_file = f'models/results/model_{model_name}.h5'
+        model_file = f'models/results/_model_{model_name}.h5'
         self.model.save(model_file)
         print(f"Model saved: {model_file}")
 
@@ -32,7 +32,7 @@ class ModelBase(ABC):
             "ROC AUC Score": roc_auc_score(y_test, y_pred),
             "Balanced Accuracy": balanced_accuracy_score(y_test, y_pred)
         }
-
+        # needs refactoring generator only last model results
         plotter = ModelPlots({model_name: self.model}, X_test, y_test)
         plotter.plot_roc_curves()
         plotter.plot_precision_recall_curves()
