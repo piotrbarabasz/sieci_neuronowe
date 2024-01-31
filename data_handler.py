@@ -5,9 +5,16 @@ from imblearn.over_sampling import SMOTE
 from imblearn.under_sampling import TomekLinks
 from sklearn.model_selection import RepeatedStratifiedKFold
 from collections import Counter
+from sklearn.model_selection import train_test_split
 
 class DataHandler:
     def __init__(self):
+        # self.X_data = None
+        # self.y_data = None
+        # self.X_train = None
+        # self.y_train = None
+        # self.X_val = None
+        # self.y_val = None
         self.train_data = pd.DataFrame()
         self.test_data = pd.DataFrame()
         self.scaler = StandardScaler()
@@ -26,6 +33,22 @@ class DataHandler:
             file_path = f'dataset/test/data_{i}.csv'
             temp_df = pd.read_csv(file_path)
             self.test_data = pd.concat([self.test_data, temp_df], ignore_index=True)
+
+    def split(self):
+        for i in range(20):
+            file_path = f'dataset/train/data_{i}.csv'
+            temp_df = pd.read_csv(file_path)
+            self.train_data = pd.concat([self.train_data, temp_df], ignore_index=True)
+
+        for i in range(20, 25):
+            file_path = f'dataset/test/data_{i}.csv'
+            temp_df = pd.read_csv(file_path)
+            self.test_data = pd.concat([self.test_data, temp_df], ignore_index=True)
+
+        X_train, X_val, y_train, y_val = train_test_split(
+            self.train_data, self.test_data, test_size=0.2)
+
+        return X_train, y_train, X_val, y_val
 
     def preprocess_data(self):
         X = self.train_data.iloc[:, :-1].values
@@ -54,3 +77,9 @@ class DataHandler:
         minority_class_count = min(class_counts.values())
         imbalance_rate = majority_class_count / minority_class_count
         return imbalance_rate
+
+    def get_training_data(self):
+        return self.X_train, self.y_train
+
+    def get_validation_data(self):
+        return self.X_val, self.y_val

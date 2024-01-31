@@ -3,6 +3,13 @@ from tensorflow.keras.layers import Conv1D, LSTM, Dense, Dropout
 from model_base import ModelBase
 
 class CNNLSTMModel(ModelBase):
+    def __init__(self, input_shape, num_conv_layers, num_lstm_units, dropout_rate):
+        # Store the hyperparameters
+        self.num_conv_layers = num_conv_layers
+        self.num_lstm_units = num_lstm_units
+        self.dropout_rate = dropout_rate
+        super().__init__(input_shape)
+
     def build_model(self, input_shape):
         model = Sequential()
         model.add(Conv1D(32, 3, activation='relu', input_shape=input_shape))

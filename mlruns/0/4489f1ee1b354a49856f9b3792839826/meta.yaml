@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/user/Desktop/sieci neuronowe/mlruns/0/4489f1ee1b354a49856f9b3792839826/artifacts
+end_time: 1705790767759
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 4489f1ee1b354a49856f9b3792839826
+run_name: puzzled-shrew-63
+run_uuid: 4489f1ee1b354a49856f9b3792839826
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705790767471
+status: 4
+tags: []
+user_id: user

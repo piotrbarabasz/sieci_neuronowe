@@ -1,0 +1,15 @@
+artifact_uri: file:///c:/Users/user/Desktop/sieci neuronowe/mlruns/0/c0f969ab170a4d92867323cb158bd00e/artifacts
+end_time: 1705825857158
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: c0f969ab170a4d92867323cb158bd00e
+run_name: youthful-dog-896
+run_uuid: c0f969ab170a4d92867323cb158bd00e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1705825857119
+status: 4
+tags: []
+user_id: user
